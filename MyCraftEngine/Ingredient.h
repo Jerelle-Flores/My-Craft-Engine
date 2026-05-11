@@ -3,11 +3,10 @@
 
 class Ingredient {
 public:
-    std::string name = "";
-    double quantity = 0.0;
-    std::string unit = "";
+    std::string name;
+    double quantity;
+    std::string unit;
 
 
-    Ingredient();
     Ingredient(std::string n, double q, std::string u);
 };

@@ -6,5 +6,5 @@
 	}
 
 	void Tool::upgrade() {
-		tier++;
+		if (tier < 3) tier++;
 	}

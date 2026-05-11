@@ -8,7 +8,4 @@
 class ToolUpgrade {
 public: 
 	static void upgradeTool(Chest& chest, std::string toolName);
-
-private:
-	static std::map<std::string, std::vector<Ingredient>> upgradeRequirements;
 };
