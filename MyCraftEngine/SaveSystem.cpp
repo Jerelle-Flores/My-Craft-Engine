@@ -1,47 +1,71 @@
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <iostream>
 #include "SaveSystem.h"
+#include <fstream>
+#include <iostream>
 
-void SaveSystem::save(Chest& chest, std::string filename) {
-	std::ofstream file(filename);
+void SaveSystem::save(Chest& chest, std::string file) {
 
-	if (!file.is_open()) {
-		std::cout << "Error saving file: " << filename << '\n';
-		return;
-	}
+    std::ofstream out(file);
 
-	file << "[INGREDIENTS]" << '\n';
-	for (const auto& i : chest.ingredients) {
-		file << i.name << "," << i.quantity << "," << i.unit << '\n';
-	}
+    for (auto& i : chest.ingredients)
+        out << "I\n" << i.name << "\n" << i.quantity << "\n";
 
-	file << "[TOOLS]" << '\n';
-	for (const auto& t : chest.tools) {
-		file << t.name << "," << t.tier << '\n';
-	}	
+    for (auto& t : chest.tools)
+        out << "T\n" << t.name << "\n" << t.tier << "\n";
 
-	file << "[ITEMS]" << '\n';
-	for (const auto& it : chest.items) {
-		file << it.name << '\n';
-	}
-
-	file.close();
-	std::cout << "Game Saved Successfully " << filename << '\n';
-
+    for (auto& it : chest.items)
+        out << "IT\n" << it.name << "\n";
 }
-void SaveSystem::load(Chest& chest, std::string filename) {
-	std::ifstream file(filename);
+void SaveSystem::load(Chest& chest, std::string file) {
 
-	if (!file.is_open()) {
-		std::cout << "No save file found " << filename << '\n';
-		return;
-	}
-	chest.ingredients.clear();
-	chest.tools.clear();
-	chest.items.clear();
-	std::string lines;
-	std::string section = "";
+    std::ifstream in(file);
 
+    if (!in.is_open()) {
 
+        std::cout << "No save file found. Starting new game.\n";
+        return;
+    }
+
+    chest.ingredients.clear();
+    chest.tools.clear();
+    chest.items.clear();
+
+    std::string type;
+
+    while (in >> type) {
+
+        in.ignore();
+
+        if (type == "I") {
+
+            std::string n;
+            double q;
+
+            std::getline(in, n);
+            in >> q;
+
+            chest.ingredients.push_back(
+                Ingredient(n, q, "pcs")
+            );
+        }
+
+        else if (type == "T") {
+
+            std::string n;
+            int t;
+
+            std::getline(in, n);
+            in >> t;
+
+            chest.tools.push_back(Tool(n, t));
+        }
+
+        else if (type == "IT") {
+
+            std::string n;
+
+            std::getline(in, n);
+
+            chest.items.push_back(Item(n));
+        }
+    }
+}

@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="Chest.cpp" />
     <ClCompile Include="CraftEngine.cpp" />
+    <ClCompile Include="Data.cpp" />
     <ClCompile Include="Ingredient.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
@@ -140,6 +141,7 @@
   <ItemGroup>
     <ClInclude Include="Chest.h" />
     <ClInclude Include="CraftEngine.h" />
+    <ClInclude Include="Data.h" />
     <ClInclude Include="Ingredient.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Recipe.h" />
