@@ -315,7 +315,7 @@ std::vector<Recipe> loadRecipes() {
         )
     );
 
-    // ---------- MAGIC ----------
+   
 
     r.push_back(
         Recipe(
