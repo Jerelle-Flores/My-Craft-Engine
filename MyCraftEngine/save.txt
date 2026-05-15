@@ -1,0 +1,25 @@
+I
+Iron Ore
+7
+I
+Wood
+9
+I
+Steel Fragment
+9
+I
+Magic Dust
+10
+T
+Forge Hammer
+1
+T
+Mystical Arcane Table
+1
+T
+Guardian Sigil
+1
+IT
+Dagger
+IT
+Knife

@@ -216,13 +216,12 @@ int main() {
                 }
                 else if (c == 2) {
 
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    
                     std::string name;
                     std::getline(std::cin, name);
                     double qty;
 
                     std::cout << "Allowed Raw Ingredients:" << '\n';
-
                     std::cout << "- Iron Ore" << '\n';
                     std::cout << "- Wood" << '\n';
                     std::cout << "- Leather" << '\n';

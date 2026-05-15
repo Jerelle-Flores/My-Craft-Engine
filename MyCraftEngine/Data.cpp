@@ -283,14 +283,11 @@ std::vector<Recipe> loadRecipes() {
     );
 
     r.push_back(
-        Recipe(
-            "Athena's Shield",
-            {
-                Ingredient("Silence Robe", 1, "pcs"),
-                Ingredient("Vitality Crystal", 1, "pcs")
+        Recipe("Athena's Shield",{
+            Ingredient("Silence Robe", 1, "pcs"),
+            Ingredient("Vitality Crystal", 1, "pcs")
             },
-            "Guardian Sigil",
-            3
+            "Guardian Sigil",3
         )
     );
 
