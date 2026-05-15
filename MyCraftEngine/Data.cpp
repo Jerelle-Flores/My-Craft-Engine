@@ -500,7 +500,7 @@ std::vector<Recipe> getSuperiorRecipes() {
 
     return result;
 }
- 
+
 
 std::vector<Recipe> getSpecialRecipes() {
 
