@@ -1,25 +1,32 @@
 I
 Iron Ore
-7
+0
 I
 Wood
 9
 I
 Steel Fragment
-9
+2
 I
 Magic Dust
-10
+8
 T
 Forge Hammer
-1
+2
 T
 Mystical Arcane Table
 1
 T
 Guardian Sigil
 1
+T
+Universal
+1
 IT
 Dagger
 IT
 Knife
+IT
+Tool Ascension
+IT
+Tool Ascension

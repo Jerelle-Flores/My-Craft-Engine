@@ -140,11 +140,17 @@ int main() {
 
     SaveSystem::load(chest, "save.txt");
 
+    if (!chest.hasTool("Universal")) {
+        chest.tools.push_back(Tool("Universal", 1));
+
+    }
+
     if (chest.tools.empty()) {
 
         chest.tools.push_back(Tool("Forge Hammer", 1));
         chest.tools.push_back(Tool("Mystical Arcane Table", 1));
         chest.tools.push_back(Tool("Guardian Sigil", 1));
+        chest.tools.push_back(Tool("Universal", 1));
     }
 
     int choice;
@@ -381,16 +387,44 @@ int main() {
 
                     std::cout << "============= TOOLS =============" << '\n';
 
-                    for (auto& t : chest.tools) {
-                        std::cout << t.name << " Tier " << t.tier << '\n';
+                    if (chest.tools.empty()) {
+                        std::cout << "No tools." << '\n';
+                        continue;
                     }
 
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max());
+                    // show numbered list so user can pick by index
+                    for (int i = 0; i < (int)chest.tools.size(); ++i) {
+                        std::cout << "[" << i + 1 << "] " << chest.tools[i].name << " Tier " << chest.tools[i].tier << '\n';
+                    }
 
-                    std::string name;
-                    std::cout << "Enter tool name: " << '\n';
-                    std::getline(std::cin, name);
-                    ToolUpgrade::upgradeTool(chest, name);
+                    // clear leftover input up to newline
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+                    std::cout << "Enter tool number to upgrade (or 0 to cancel): " << '\n';
+                    int pick = getIntInput();
+
+                    if (pick == 0) {
+                        continue; // user chose cancel
+                    }
+
+                    if (pick < 0 || pick > (int)chest.tools.size()) {
+                        std::cout << "Invalid selection!" << '\n';
+                        continue;
+                    }
+
+                    std::string name = chest.tools[pick - 1].name;
+
+                    // show requirements and ask for confirmation
+                    ToolUpgrade::showRequirements(chest, name);
+                    std::cout << "\n[1] Confirm upgrade\n[2] Back\nChoice: ";
+                    int confirm = getIntInput();
+
+                    if (confirm == 1) {
+                        ToolUpgrade::upgradeTool(chest, name);
+                    }
+                    else {
+                        std::cout << "Upgrade canceled.\n";
+                    }
                 }
                 else if (cat == 6) {
                     break;

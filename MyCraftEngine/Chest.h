@@ -14,4 +14,6 @@ public:
     bool hasIngredients(std::vector<Ingredient> req);
     bool hasTool(std::string name);
     void removeIngredients(std::vector<Ingredient> req);
+    bool hasItem(std::string name);
+    void removeItem(std::string name);
 };

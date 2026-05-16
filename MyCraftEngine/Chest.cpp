@@ -44,10 +44,14 @@ bool Chest::hasIngredients(std::vector<Ingredient> req) {
 bool Chest::hasTool(std::string name) {
 
     for (auto& t : tools) {
-
+        // exact match
         if (t.name == name)
             return true;
-    }
+
+        // a "Universal" tool should satisfy any station requirement
+        if (t.name == "Universal")
+            return true;
+    }   
 
     return false;
 }
@@ -57,6 +61,22 @@ void Chest::removeIngredients(std::vector<Ingredient> req) {
         for (auto& i : ingredients) {
             if (i.name == r.name)
                 i.quantity -= r.quantity;
+        }
+    }
+}
+
+bool Chest::hasItem(std::string name) {
+    for (auto& it : items) {
+        if (it.name == name) return true;
+    }
+    return false;
+}
+
+void Chest::removeItem(std::string name) {
+    for (auto it = items.begin(); it != items.end(); ++it) {
+        if (it->name == name) {
+            items.erase(it);
+            return;
         }
     }
 }

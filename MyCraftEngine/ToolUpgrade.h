@@ -7,5 +7,7 @@
 
 class ToolUpgrade {
 public: 
-	static void upgradeTool(Chest& chest, std::string toolName);
+    static void upgradeTool(Chest& chest, std::string toolName);
+	static std::vector<Ingredient> getRequirements(std::string toolName);
+	static void showRequirements(Chest& chest, std::string toolName);
 };
