@@ -12,15 +12,12 @@ void ToolUpgrade::upgradeTool(Chest& chest, std::string name) {
                 return;
             }
             auto req = getRequirements(name);
-            // determine Tool Ascension requirement based on current tool tier
             int ascNeeded = 0;
-            if (t.tier == 1) ascNeeded = 1; // upgrading to tier 2
-            else if (t.tier == 2) ascNeeded = 2; // upgrading to tier 3
-
+            if (t.tier == 1) ascNeeded = 1;
+            else if (t.tier == 2) ascNeeded = 2;
             if (ascNeeded > 0) {
                 req.push_back(Ingredient("Tool Ascension", ascNeeded, "pcs"));
             }
-
             if (!chest.hasIngredients(req)) {
                 std::cout << "Missing ingredient requirements to upgrade " << name << "\n";
                 showRequirements(chest, name);
@@ -34,7 +31,6 @@ void ToolUpgrade::upgradeTool(Chest& chest, std::string name) {
             return;
         }
     }
-
     std::cout << "Tool not found\n";
 }
 
@@ -62,7 +58,6 @@ void ToolUpgrade::showRequirements(Chest& chest, std::string toolName) {
         std::cout << " - None\n";
         return;
     }
-    // show each ingredient along with how much the player has
     for (auto& r : req) {
         double rawHave = 0;
         for (auto& ing : chest.ingredients) {
@@ -78,7 +73,6 @@ void ToolUpgrade::showRequirements(Chest& chest, std::string toolName) {
         std::cout << " - " << r.name << " x" << r.quantity << " (You have: " << totalHave << ")\n";
     }
 
-    // determine ascension requirement based on current tool tier
     int ascNeeded = 0;
     for (auto& t : chest.tools) {
         if (t.name == toolName) {
@@ -90,11 +84,9 @@ void ToolUpgrade::showRequirements(Chest& chest, std::string toolName) {
 
     if (ascNeeded > 0) {
         int taCount = 0;
-        // count Tool Ascension items in crafted items
         for (auto& it : chest.items) {
             if (it.name == "Tool Ascension") taCount++;
         }
-        // also include any raw quantity entries named "Tool Ascension" (if present)
         for (auto& ing : chest.ingredients) {
             if (ing.name == "Tool Ascension") taCount += (int)ing.quantity;
         }

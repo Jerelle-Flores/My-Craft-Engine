@@ -2,7 +2,6 @@
 #include "Chest.h"
 #include <string>
 
-
 class SaveSystem {
 public:
 	static void save(Chest& chest, std::string filename);

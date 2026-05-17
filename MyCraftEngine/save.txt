@@ -1,12 +1,12 @@
 I
 Iron Ore
-9999
+9986
 I
 Wood
-10008
+10004
 I
 Steel Fragment
-10001
+9996
 I
 Magic Dust
 1007
@@ -33,7 +33,7 @@ Dark Essence
 999
 T
 Forge Hammer
-2
+3
 T
 Mystical Arcane Table
 1
@@ -44,10 +44,6 @@ T
 Universal
 1
 IT
-Dagger
+Blade of Despair
 IT
-Knife
-IT
-Tool Ascension
-IT
-Tool Ascension
+Regular Spear

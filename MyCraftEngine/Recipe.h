@@ -10,7 +10,5 @@ public:
 	std::string station = "";
 	int tier = 1;
 
-	Recipe();
-
 	Recipe(std::string name, std::vector<Ingredient> ing, std::string s, int t);
 };

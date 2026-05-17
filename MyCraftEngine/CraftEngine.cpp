@@ -8,7 +8,6 @@ void CraftEngine::craft(Chest& chest, Recipe recipe) {
         std::cout << "Insufficient Ingredients\n";
         return;
     }
-    // require tool tier based on recipe tier
     int requiredToolTier = 1;
     if (recipe.tier == 2) requiredToolTier = 2;
     else if (recipe.tier == 3) requiredToolTier = 3;

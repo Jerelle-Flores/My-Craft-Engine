@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{ca50947c-31cf-4d86-8197-956b9068c175}</ProjectGuid>
-    <RootNamespace>MyCraftEngine</RootNamespace>
+    <ProjectGuid>{a619e908-37f6-49f1-b9f8-1961e29f39a4}</ProjectGuid>
+    <RootNamespace>MyCraftEngineTest</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -105,6 +105,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\Jerelle Flores - ELMs\imtired\MyCraftEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,28 +128,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Chest.cpp" />
-    <ClCompile Include="CraftEngine.cpp" />
-    <ClCompile Include="Data.cpp" />
-    <ClCompile Include="Ingredient.cpp" />
-    <ClCompile Include="Item.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Recipe.cpp" />
-    <ClCompile Include="SaveSystem.cpp" />
-    <ClCompile Include="Tool.cpp" />
-    <ClCompile Include="ToolUpgrade.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\Users\jerel\Downloads\doctest.h" />
-    <ClInclude Include="Chest.h" />
-    <ClInclude Include="CraftEngine.h" />
-    <ClInclude Include="Data.h" />
-    <ClInclude Include="Ingredient.h" />
-    <ClInclude Include="Item.h" />
-    <ClInclude Include="Recipe.h" />
-    <ClInclude Include="SaveSystem.h" />
-    <ClInclude Include="Tool.h" />
-    <ClInclude Include="ToolUpgrade.h" />
+    <ClCompile Include="..\MyCraftEngine\Chest.cpp" />
+    <ClCompile Include="..\MyCraftEngine\CraftEngine.cpp" />
+    <ClCompile Include="..\MyCraftEngine\Data.cpp" />
+    <ClCompile Include="..\MyCraftEngine\Ingredient.cpp" />
+    <ClCompile Include="..\MyCraftEngine\Item.cpp" />
+    <ClCompile Include="..\MyCraftEngine\Recipe.cpp" />
+    <ClCompile Include="..\MyCraftEngine\SaveSystem.cpp" />
+    <ClCompile Include="..\MyCraftEngine\Tool.cpp" />
+    <ClCompile Include="..\MyCraftEngine\ToolUpgrade.cpp" />
+    <ClCompile Include="MyCraftEngine_Test.cpp" />
+    <ClCompile Include="test_chest.cpp" />
+    <ClCompile Include="test_craftengine.cpp" />
+    <ClCompile Include="test_data.cpp" />
+    <ClCompile Include="test_ingredient.cpp" />
+    <ClCompile Include="test_item.cpp" />
+    <ClCompile Include="test_recipe.cpp" />
+    <ClCompile Include="test_savesystem.cpp" />
+    <ClCompile Include="test_tool.cpp" />
+    <ClCompile Include="test_toolupgrade.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

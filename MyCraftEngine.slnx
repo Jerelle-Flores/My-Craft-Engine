@@ -4,4 +4,5 @@
     <Platform Name="x86" />
   </Configurations>
   <Project Path="MyCraftEngine/MyCraftEngine.vcxproj" Id="ca50947c-31cf-4d86-8197-956b9068c175" />
+  <Project Path="MyCraftEngine_Test/MyCraftEngine_Test.vcxproj" Id="a619e908-37f6-49f1-b9f8-1961e29f39a4" />
 </Solution>
