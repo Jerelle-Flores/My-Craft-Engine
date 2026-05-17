@@ -12,6 +12,8 @@ public:
 
     void addIngredient(Ingredient ing);
     bool hasIngredients(std::vector<Ingredient> req);
-    bool hasTool(std::string name);
+    bool hasTool(std::string name, int minTier = 1);
     void removeIngredients(std::vector<Ingredient> req);
+    bool hasItem(std::string name);
+    void removeItem(std::string name);
 };

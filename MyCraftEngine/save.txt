@@ -1,25 +1,53 @@
 I
 Iron Ore
-7
+9999
 I
 Wood
-9
+10008
 I
 Steel Fragment
-9
+10001
 I
 Magic Dust
-10
+1007
+I
+Leather
+9999
+I
+Cloth
+9999
+I
+Mana Crystal
+9999
+I
+Crystal Shard
+9999
+I
+Beast Fang
+9999
+I
+Energy Core
+9999
+I
+Dark Essence
+999
 T
 Forge Hammer
-1
+2
 T
 Mystical Arcane Table
 1
 T
 Guardian Sigil
 1
+T
+Universal
+1
 IT
 Dagger
 IT
 Knife
+IT
+Tool Ascension
+IT
+Tool Ascension
