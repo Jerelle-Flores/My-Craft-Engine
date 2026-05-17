@@ -31,36 +31,57 @@ void Chest::addIngredient(Ingredient ing) {
 
 bool Chest::hasIngredients(std::vector<Ingredient> req) {
     for (auto r : req) {
-        bool found = false;
+        // compute total available = raw quantity + crafted item count
+        double rawQty = 0;
         for (auto& i : ingredients) {
-            if (i.name == r.name && i.quantity >= r.quantity)
-                found = true;
+            if (i.name == r.name) { rawQty = i.quantity; break; }
         }
-        if (!found) return false;
+
+        int craftedCount = 0;
+        for (auto& it : items) {
+            if (it.name == r.name) craftedCount++;
+        }
+
+        double totalAvailable = rawQty + craftedCount;
+        if (totalAvailable < r.quantity) return false;
     }
     return true;
 }
 
-bool Chest::hasTool(std::string name) {
+bool Chest::hasTool(std::string name, int minTier) {
 
     for (auto& t : tools) {
-        // exact match
-        if (t.name == name)
-            return true;
-
         // a "Universal" tool should satisfy any station requirement
-        if (t.name == "Universal")
+        if (t.name == "Universal" && t.tier >= minTier) return true;
+
+        // exact match with minimum tier
+        if (t.name == name && t.tier >= minTier)
             return true;
-    }   
+    }
 
     return false;
 }
 
 void Chest::removeIngredients(std::vector<Ingredient> req) {
     for (auto r : req) {
+        // remove from raw ingredients first
+        double remaining = r.quantity;
         for (auto& i : ingredients) {
-            if (i.name == r.name)
-                i.quantity -= r.quantity;
+            if (i.name == r.name && remaining > 0) {
+                double take = std::min(i.quantity, remaining);
+                i.quantity -= take;
+                remaining -= take;
+                // do not break; in case multiple raw entries exist (shouldn't)
+            }
+        }
+
+        // then remove crafted items for any remaining amount (one crafted item == 1 unit)
+        for (auto it = items.begin(); it != items.end() && remaining > 0; ) {
+            if (it->name == r.name) {
+                it = items.erase(it);
+                remaining -= 1.0;
+            }
+            else ++it;
         }
     }
 }

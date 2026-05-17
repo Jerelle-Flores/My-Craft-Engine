@@ -77,7 +77,11 @@ void showRecipeRequirements(Chest& chest, Recipe& r) {
 
     std::cout << "\n=================================\n";
     std::cout << "ITEM: " << r.itemName << "\n";
-    std::cout << "REQUIRED TOOL: " << r.station << "\n";
+    int requiredToolTier = 1;
+    if (r.tier == 2) requiredToolTier = 2;
+    else if (r.tier == 3) requiredToolTier = 3;
+
+    std::cout << "REQUIRED TOOL: " << r.station << " (Tier " << requiredToolTier << ")\n";
     std::cout << "RECIPE TIER: " << r.tier << "\n";
     std::cout << "=================================\n";
 
@@ -87,14 +91,23 @@ void showRecipeRequirements(Chest& chest, Recipe& r) {
 
         bool found = false;
 
+        // check raw ingredients first
         for (auto& playerIng : chest.ingredients) {
-
             if (playerIng.name == ing.name &&
                 playerIng.quantity >= ing.quantity) {
 
                 found = true;
                 break;
             }
+        }
+
+        // if not found in raw ingredients, check crafted items inventory
+        if (!found) {
+            int count = 0;
+            for (auto& it : chest.items) {
+                if (it.name == ing.name) count++;
+            }
+            if (count >= (int)ing.quantity) found = true;
         }
 
         if (found) {
@@ -115,9 +128,15 @@ void showRecipeRequirements(Chest& chest, Recipe& r) {
 
     std::cout << "=================================\n";
 
+    // check required tool tier availability
+    if (!chest.hasTool(r.station, requiredToolTier)) {
+        std::cout << "[MISSING TOOL] " << r.station << " (need Tier " << requiredToolTier << ")\n";
+        canCraft = false;
+    }
+
     if (!canCraft) {
 
-        std::cout << "You do not have enough materials.\n";
+        std::cout << "You do not have enough materials or the required tool.\n";
         return;
     }
 
@@ -397,17 +416,19 @@ int main() {
                         std::cout << "[" << i + 1 << "] " << chest.tools[i].name << " Tier " << chest.tools[i].tier << '\n';
                     }
 
+                    std::cout << "[5] Back" << '\n';
+
                     // clear leftover input up to newline
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-                    std::cout << "Enter tool number to upgrade (or 0 to cancel): " << '\n';
+                    std::cout << "Enter tool number to upgrade: " << '\n';
                     int pick = getIntInput();
 
-                    if (pick == 0) {
-                        continue; // user chose cancel
+                    if (pick == 5) {
+                        continue; // user chose back
                     }
 
-                    if (pick < 0 || pick > (int)chest.tools.size()) {
+                    if (pick < 1 || pick > (int)chest.tools.size()) {
                         std::cout << "Invalid selection!" << '\n';
                         continue;
                     }

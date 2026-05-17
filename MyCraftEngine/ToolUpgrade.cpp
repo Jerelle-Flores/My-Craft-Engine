@@ -12,11 +12,13 @@ void ToolUpgrade::upgradeTool(Chest& chest, std::string name) {
                 return;
             }
             auto req = getRequirements(name);
+            // determine Tool Ascension requirement based on current tool tier
+            int ascNeeded = 0;
+            if (t.tier == 1) ascNeeded = 1; // upgrading to tier 2
+            else if (t.tier == 2) ascNeeded = 2; // upgrading to tier 3
 
-            if (!chest.hasItem("Tool Ascension")) {
-                std::cout << "Missing Tool Ascension item to upgrade " << name << "\n";
-                showRequirements(chest, name);
-                return;
+            if (ascNeeded > 0) {
+                req.push_back(Ingredient("Tool Ascension", ascNeeded, "pcs"));
             }
 
             if (!chest.hasIngredients(req)) {
@@ -24,10 +26,10 @@ void ToolUpgrade::upgradeTool(Chest& chest, std::string name) {
                 showRequirements(chest, name);
                 return;
             }
-
             chest.removeIngredients(req);
 
             t.upgrade();
+
             std::cout << "Tool upgraded to Tier " << t.tier << "\n";
             return;
         }
@@ -60,18 +62,43 @@ void ToolUpgrade::showRequirements(Chest& chest, std::string toolName) {
         std::cout << " - None\n";
         return;
     }
-
+    // show each ingredient along with how much the player has
     for (auto& r : req) {
-        double have = 0;
+        double rawHave = 0;
         for (auto& ing : chest.ingredients) {
-            if (ing.name == r.name) { have = ing.quantity; break; }
+            if (ing.name == r.name) { rawHave = ing.quantity; break; }
         }
-        std::cout << " - " << r.name << " x" << r.quantity << " (You have: " << have << ")\n";
+
+        int craftedCount = 0;
+        for (auto& it : chest.items) {
+            if (it.name == r.name) craftedCount++;
+        }
+
+        double totalHave = rawHave + craftedCount;
+        std::cout << " - " << r.name << " x" << r.quantity << " (You have: " << totalHave << ")\n";
     }
 
- 
-    if (toolName == "Universal" || toolName == "Forge Hammer" || toolName == "Mystical Arcane Table") {
-        bool hasTA = chest.hasItem("Tool Ascension");
-        std::cout << " - Tool Ascension (You have: " << (hasTA ? "Yes" : "No") << ")\n";
+    // determine ascension requirement based on current tool tier
+    int ascNeeded = 0;
+    for (auto& t : chest.tools) {
+        if (t.name == toolName) {
+            if (t.tier == 1) ascNeeded = 1;
+            else if (t.tier == 2) ascNeeded = 2;
+            break;
+        }
+    }
+
+    if (ascNeeded > 0) {
+        int taCount = 0;
+        // count Tool Ascension items in crafted items
+        for (auto& it : chest.items) {
+            if (it.name == "Tool Ascension") taCount++;
+        }
+        // also include any raw quantity entries named "Tool Ascension" (if present)
+        for (auto& ing : chest.ingredients) {
+            if (ing.name == "Tool Ascension") taCount += (int)ing.quantity;
+        }
+
+        std::cout << " - Tool Ascension x" << ascNeeded << " (You have: " << taCount << ")\n";
     }
 }
